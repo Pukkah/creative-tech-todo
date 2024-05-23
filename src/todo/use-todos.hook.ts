@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { Todo, todoSchema } from "./todo.model";
 
@@ -31,8 +31,25 @@ export function useTodos() {
       .catch((error) => console.warn(error));
   }, []);
 
+  const changeStatus = useCallback(
+    (id: number, status: Todo["status"]) =>
+      setTodos((oldTodos) => {
+        const existingIndex = oldTodos.findIndex((todo) => todo.id === id);
+        if (existingIndex === -1) {
+          return oldTodos;
+        }
+        const updatedTodo = { ...oldTodos[existingIndex], status };
+        const newTodos = [...oldTodos];
+        newTodos[existingIndex] = updatedTodo;
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newTodos));
+        return newTodos;
+      }),
+    [],
+  );
+
   return {
     todos,
+    changeStatus,
   };
 }
 
