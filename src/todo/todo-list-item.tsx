@@ -28,10 +28,10 @@ export const TodoListItem = ({
           "rounded-xl border-2 border-current px-2.5 text-black",
           "transition-colors duration-300",
           "outline-none",
-          "hover:text-brand-base hover:bg-black",
+          "pointer-hover:bg-black pointer-hover:text-brand-base",
           "ring-black focus-visible:ring-2",
-          "stroke-brand-accent hover:stroke-current", // <- inferred by status icons
-          "disabled:text-brand-pink disabled:pointer-events-none",
+          "stroke-brand-accent pointer-hover:stroke-current", // <- inferred by status icons
+          "disabled:pointer-events-none disabled:text-brand-pink",
           "disabled:line-through",
         )}
       >
