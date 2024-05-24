@@ -19,8 +19,8 @@ type TodoStore = {
   toggleEditMode: () => void;
 };
 
-export const useTodoStore = create(
-  persist<TodoStore>(
+export const useTodoStore = create<TodoStore>()(
+  persist(
     (set, get) => ({
       todos: null,
       maxId: -1,
@@ -74,8 +74,6 @@ export const useTodoStore = create(
     }),
     {
       name: LOCAL_STORAGE_KEY,
-      // @ts-expect-error - feature is supported but types are not updated
-      // https://docs.pmnd.rs/zustand/integrations/persisting-store-data#partialize
       partialize: (state) => ({ todos: state.todos, maxId: state.maxId }),
       onRehydrateStorage: () => (storedState) => {
         if (!storedState?.todos) {
