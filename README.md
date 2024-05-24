@@ -1,30 +1,31 @@
-# React + TypeScript + Vite
+# TRY Creative Tech - ToDo challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This was a small test to look at my structure, workflow and code skills as a developer.
+The challenge consists of a simple single-page todo-list app.
 
-Currently, two official plugins are available:
+I was provided with a simple API containing some tasks and ability to update task status (without actually updating them though). The state of tasks are saved localStorage.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Latest deployment https://creative-tech-todo.vercel.app
 
-## Expanding the ESLint configuration
+## Tech used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Application was bootstrapped with: [React](https://react.dev) + [TypeScript](https://www.typescriptlang.org) + [Vite](https://vitejs.dev) + [Tailwindcss](https://tailwindcss.com)
 
-- Configure the top-level `parserOptions` property like this:
+Notable libraries used:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+- [zod](https://zod.dev), for for API data validation
+- [zustand](https://zustand-demo.pmnd.rs), for state management
+- [@formkit/auto-animate](https://auto-animate.formkit.com)
+
+## Development
+
+Requirements:
+
+- [Node.js](https://nodejs.org)
+
+```sh
+git clone https://github.com/Pukkah/creative-tech-todo
+cd creative-tech-todo
+npm i
+npm run dev
 ```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
