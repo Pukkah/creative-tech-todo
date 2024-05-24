@@ -1,0 +1,17 @@
+{
+  "name": "Creative Tech - ToDo",
+  "short_name": "TRY ToDo",
+  "theme_color": "#FFDE03",
+  "background_color": "#FFDE03",
+  "icons": [
+    { "src": "icon.png", "sizes": "512x512", "type": "image/png" },
+    {
+      "src": "icon_maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "display": "standalone",
+  "start_url": "."
+}
