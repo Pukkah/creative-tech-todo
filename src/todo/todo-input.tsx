@@ -3,7 +3,10 @@ import { useTodoStore } from "./todo.store";
 import clsx from "clsx";
 
 export const TodoInput = () => {
-  const addTodo = useTodoStore(({ addTodo }) => addTodo);
+  const [addTodo, disabled] = useTodoStore(({ addTodo, todos }) => [
+    addTodo,
+    todos === null,
+  ]);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = useCallback(
@@ -36,6 +39,7 @@ export const TodoInput = () => {
         className="w-full bg-white/10 px-2.5 text-2xl text-black outline-none placeholder:text-black/25"
         required
         maxLength={40}
+        disabled={disabled}
         ref={inputRef}
       />
       <button

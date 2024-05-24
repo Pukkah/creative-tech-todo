@@ -12,6 +12,7 @@ type TodoStore = {
   /* -1 if there is no initial data form API */
   maxId: number;
   isEditMode: boolean;
+  hasFetchError: boolean;
   updateStatus: (args: Pick<Todo, "id" | "status">) => void;
   addTodo: (title: string) => void;
   deleteDodo: (id: number) => void;
@@ -24,6 +25,7 @@ export const useTodoStore = create(
       todos: null,
       maxId: -1,
       isEditMode: false,
+      hasFetchError: false,
       updateStatus: async ({ id, status }) => {
         const { todos } = get();
         if (!todos) {
@@ -86,9 +88,13 @@ export const useTodoStore = create(
               useTodoStore.setState({
                 todos: fetchedTodos.sort(sortTodos),
                 maxId: Math.max(...fetchedTodos.map((x) => x.id)),
+                hasFetchError: false,
               }),
             )
-            .catch((error) => console.warn(error));
+            .catch((error) => {
+              console.error("Failed to fetch or parse API data", error);
+              useTodoStore.setState({ hasFetchError: true });
+            });
         }
       },
     },
