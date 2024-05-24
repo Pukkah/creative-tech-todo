@@ -11,8 +11,11 @@ type TodoStore = {
   todos: Todo[] | null;
   /* -1 if there is no initial data form API */
   maxId: number;
+  isEditMode: boolean;
   updateStatus: (args: Pick<Todo, "id" | "status">) => void;
   addTodo: (title: string) => void;
+  deleteDodo: (id: number) => void;
+  toggleEditMode: () => void;
 };
 
 export const useTodoStore = create(
@@ -20,6 +23,7 @@ export const useTodoStore = create(
     (set, get) => ({
       todos: null,
       maxId: -1,
+      isEditMode: false,
       updateStatus: async ({ id, status }) => {
         const { todos } = get();
         if (!todos) {
@@ -55,9 +59,22 @@ export const useTodoStore = create(
           maxId: state.maxId + 1,
         }));
       },
+      deleteDodo: (id) =>
+        set((state) => {
+          const remainingTodos =
+            state.todos?.filter((todo) => todo.id !== id) ?? [];
+          return {
+            todos: remainingTodos,
+            isEditMode: !!remainingTodos.length,
+          };
+        }),
+      toggleEditMode: () => set((state) => ({ isEditMode: !state.isEditMode })),
     }),
     {
       name: LOCAL_STORAGE_KEY,
+      // @ts-expect-error - feature is supported but types are not updated
+      // https://docs.pmnd.rs/zustand/integrations/persisting-store-data#partialize
+      partialize: (state) => ({ todos: state.todos, maxId: state.maxId }),
       onRehydrateStorage: () => (storedState) => {
         if (!storedState?.todos) {
           // Fetch initial data from API

@@ -2,8 +2,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TodoListItem } from "./todo-list-item";
 import { useTodoStore } from "./todo.store";
 
-export const TodoList = () => {
-  const { todos, updateStatus } = useTodoStore();
+export const TodoList = ({ editMode }: { editMode?: boolean }) => {
+  const todos = useTodoStore(({ todos }) => todos);
   const [animateRef] = useAutoAnimate();
 
   return (
@@ -12,11 +12,7 @@ export const TodoList = () => {
       ref={animateRef}
     >
       {todos?.map((todo) => (
-        <TodoListItem
-          key={todo.id}
-          todo={todo}
-          onStatusChange={(id, status) => updateStatus({ id, status })}
-        />
+        <TodoListItem key={todo.id} todo={todo} editMode={editMode} />
       ))}
     </ul>
   );

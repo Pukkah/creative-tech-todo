@@ -9,8 +9,8 @@ export default {
       colors: {
         brand: {
           base: "#FFDE03",
-          accent: "#0336FF",
-          pink: "#FF0266",
+          positive: "#0336FF",
+          negative: "#FF0266",
         },
       },
       fontFamily: {
